@@ -16,7 +16,10 @@ from wordcloud import WordCloud
 st.set_page_config(page_title="유튜브 댓글 분석기", page_icon="📊", layout="wide")
 
 # 깃허브 리포지토리에 업로드한 나눔고딕 폰트 경로 (워드클라우드 전용)
-FONT_PATH = os.path.join("fonts", "NanumGothic.ttf")
+# 작업 디렉토리(working directory)가 아니라 이 app.py 파일 위치를 기준으로 경로를 계산해서,
+# Streamlit Cloud에서 실행 위치가 달라져도 폰트를 못 찾는 문제를 방지한다.
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+FONT_PATH = os.path.join(BASE_DIR, "fonts", "NanumGothic.ttf")
 
 # secrets.toml (또는 Streamlit Cloud > App settings > Secrets)에 아래처럼 등록해야 합니다.
 # YOUTUBE_API_KEY = "여기에_발급받은_API_키"
