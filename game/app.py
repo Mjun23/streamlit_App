@@ -12,11 +12,27 @@ numpy(행렬 연산)와 matplotlib(시각화)만 사용하고,
 
 import time
 
+import matplotlib.font_manager as fm
 import matplotlib.pyplot as plt
 import numpy as np
 import streamlit as st
 
 rng = np.random.default_rng(42)
+
+# --------------------------------------------------------------
+# matplotlib 그래프 안의 한글이 깨지는 문제 방지 (기본 폰트엔 한글이 없음)
+# 배포 환경(리눅스)에서는 NanumGothic 계열이 있어야 하므로
+# packages.txt 에 fonts-nanum 을 추가해야 함 (아래 안내 참고)
+# --------------------------------------------------------------
+_KOREAN_FONT_CANDIDATES = [
+    "NanumGothic", "NanumBarunGothic", "Malgun Gothic", "AppleGothic", "Noto Sans CJK KR",
+]
+_available_fonts = {f.name for f in fm.fontManager.ttflist}
+for _font in _KOREAN_FONT_CANDIDATES:
+    if _font in _available_fonts:
+        plt.rcParams["font.family"] = _font
+        break
+plt.rcParams["axes.unicode_minus"] = False
 
 
 # ====================================================================
